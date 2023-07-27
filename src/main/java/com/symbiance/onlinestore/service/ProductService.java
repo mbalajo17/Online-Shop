@@ -64,10 +64,11 @@ public class ProductService {
     }
 
     public List<Prduct> findAllByCategoryName(String name) {
-        if (name!="ALL"){
-            productrepositoy.findAll();
+        if (!name.equals("ALL")) {
+            return productrepositoy.findByCategory_Name(name);
+        } else {
+            return productrepositoy.findAll();
         }
-        return productrepositoy.findByCategory_Name(name);
     }
     public Prduct getonedata(Long id) {
         Prduct prduct1 = productrepositoy.findById(id).get();
