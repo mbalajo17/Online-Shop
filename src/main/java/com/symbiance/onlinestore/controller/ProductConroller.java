@@ -28,7 +28,7 @@ public class ProductConroller {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping("/addproduct")
+    @PostMapping("/product")
     public void saveproduct(@RequestPart("file") MultipartFile file,
                             @RequestPart("data") String name) throws JsonProcessingException {
 
@@ -38,19 +38,19 @@ public class ProductConroller {
     public List<Prduct> getAllProductsByCategoryName(@PathVariable(value="category") String category){
         return productService.findAllByCategoryName(category);
     }
-    @GetMapping("/listproduct")
+    @GetMapping("/product")
     public List<Prduct> showall(){
         return productService.listallproduct();
     }
 
-    @PutMapping("/updateproduct/{id}")
+    @PutMapping("/product/{id}")
     public void updatecatgory(@RequestPart("file") MultipartFile file,@RequestPart("data") String data
                                  , @PathVariable Long id) throws IOException {
      productService.updatedetalis(file,data,id);
 
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/product/{id}")
     public String delete(@PathVariable long id){
         return  productService.deletedetails(id);
     }
