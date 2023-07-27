@@ -64,6 +64,9 @@ public class ProductService {
     }
 
     public List<Prduct> findAllByCategoryName(String name) {
+        if (name!="ALL"){
+            productrepositoy.findAll();
+        }
         return productrepositoy.findByCategory_Name(name);
     }
     public Prduct getonedata(Long id) {
