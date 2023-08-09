@@ -14,8 +14,11 @@ public class CategoryService {
     @Autowired
     private Categoryrepository categoryrepository;
 
-    public void addcatgory(Category category) {
-         categoryrepository.save(category);
+    public Optional<Category> addcatgory(Category category) {
+       if (categoryrepository.existsById(category.getId())){
+           return Optional.empty();
+       }else
+        return Optional.of( categoryrepository.save(category));
     }
 
     public List<Category> getalldetails() {
@@ -41,8 +44,11 @@ public class CategoryService {
     public boolean findById(long id) {
         return categoryrepository.findById(id).isPresent();
     }
-    public Category getonedata(Long id) {
-    Category category1=categoryrepository.findById(id).get();
+    public Optional<Category> getonedata(Long id) {
+    Optional<Category> category1=categoryrepository.findById(id);
     return category1;
     }
-}
+
+
+    }
+
