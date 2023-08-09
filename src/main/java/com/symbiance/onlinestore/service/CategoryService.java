@@ -28,13 +28,13 @@ public class CategoryService {
     }
 
 
-   public Category findCategoryById(Long id){
-    return categoryrepository.findCategoryById(id);
-  }
-    public void deletecatgory(Category category) {
-         categoryrepository.delete(category);
-
-    }
+//   public Category findCategoryById(Long id){
+//    return categoryrepository.findCategoryById(id);
+//  }
+//    public void deletecatgory(Category category) {
+//         categoryrepository.delete(category);
+//
+//    }
     public void editCategory(Long id, Category updateCategory) {
         Category category = categoryrepository.getById(id);
         category.setName(updateCategory.getName());
@@ -48,7 +48,14 @@ public class CategoryService {
     Optional<Category> category1=categoryrepository.findById(id);
     return category1;
     }
-
+    public String deleteCatagory(Long id) {
+        if (categoryrepository.existsById(id)){
+            categoryrepository.deleteById(id);
+            return id+"deleted successfully";
+        }else {
+            return "Already deleted";
+        }
+    }
 
     }
 

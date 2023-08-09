@@ -71,7 +71,7 @@ public class OrderService {
             orderrepository.deleteById(id);
             return id+"deleted successfully";
         }else {
-            return "not success";
+            return "Already deleted";
         }
     }
 }
