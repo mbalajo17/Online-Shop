@@ -55,4 +55,10 @@ public String delete(@PathVariable Long id){
 
     return categoryService.deleteCatagory(id);
 }
+//    @DeleteMapping("/catagory/{id}")
+//public void del(@PathVariable Long id){
+//        categoryService.delll(id);
+//}
+
+    
 }

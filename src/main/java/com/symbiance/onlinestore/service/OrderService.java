@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class OrderService {
@@ -65,13 +66,15 @@ public class OrderService {
 
     }
 
+//    public void stream(List<Order> order){
+//        order.stream().filter(x->x.)
+//    }
 
-    public String deleteOrder(Long id) {
-        if (orderrepository.existsById(id)){
+
+    public void deleteOrder(Long id) {
+        CompletableFuture.supplyAsync(()->{
             orderrepository.deleteById(id);
-            return id+"deleted successfully";
-        }else {
-            return "Already deleted";
-        }
+            return "not";
+        });
     }
 }

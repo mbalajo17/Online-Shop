@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class CategoryService {
@@ -57,5 +58,14 @@ public class CategoryService {
         }
     }
 
-    }
+
+
+//    public void delll(Long id) {
+//        CompletableFuture.supplyAsync(()->{
+//            categoryrepository.deleteById(id);
+//            return null;
+//                });
+//
+//    }
+}
 
