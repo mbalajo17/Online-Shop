@@ -24,7 +24,9 @@ public class CategoryService {
 
     public List<Category> getalldetails() {
         List<Category> list=new ArrayList<>();
-        categoryrepository.findAll().forEach(list::add);
+        list.stream().forEach(category -> {
+            categoryrepository.findAll();
+        });
         return list;
     }
 
