@@ -20,45 +20,36 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/category")
-    public void addcatgory(@RequestBody Category category){
-         categoryService.addcatgory(category);
+    public void addcatgory(@RequestBody Category category) {
+        categoryService.addcatgory(category);
     }
 
     @GetMapping("/category")
-    public List<Category> getall(){
+    public List<Category> getall() {
         return categoryService.getalldetails();
     }
 
     @GetMapping("/category/{id}")
-    public Optional<Category> getone(@PathVariable Long id){
-    return categoryService.getonedata(id);
-}
-
-   @PutMapping("/category/{id}")
-    public ResponseEntity<Apiresponse> updateCategory(@PathVariable Long id, @RequestBody Category category ) {
-    System.out.println(" id " + id);
-    if (!categoryService.findById(id)) {
-        return new ResponseEntity<Apiresponse>(new Apiresponse("category does not exists", false), HttpStatus.NOT_FOUND);
+    public Optional<Category> getone(@PathVariable Long id) {
+        return categoryService.getonedata(id);
     }
-    categoryService.editCategory(id, category);
-    return new ResponseEntity<Apiresponse>(new Apiresponse("category has been updated", true), HttpStatus.OK);
-}
+
+    @PutMapping("/category/{id}")
+    public ResponseEntity<Apiresponse> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+        System.out.println(" id " + id);
+        if (!categoryService.findById(id)) {
+            return new ResponseEntity<Apiresponse>(new Apiresponse("category does not exists", false), HttpStatus.NOT_FOUND);
+        }
+        categoryService.editCategory(id, category);
+        return new ResponseEntity<Apiresponse>(new Apiresponse("category has been updated", true), HttpStatus.OK);
+    }
 
 
-//    @DeleteMapping("/category/{id}")
-//    public void deletecatgoty(@PathVariable Long id){
-//        Category category = categoryService.findCategoryById(id);
-//         categoryService.deletecatgory(category);
-//    }
-@DeleteMapping("/catagory/{id}")
-public String delete(@PathVariable Long id){
+    @DeleteMapping("/catagory/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
 
-    return categoryService.deleteCatagory(id);
-}
-//    @DeleteMapping("/catagory/{id}")
-//public void del(@PathVariable Long id){
-//        categoryService.delll(id);
-//}
+        return categoryService.deleteCatagory(id);
+    }
 
-    
+
 }

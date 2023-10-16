@@ -51,7 +51,7 @@ public class ProductConroller {
     }
 
     @DeleteMapping("/product/{id}")
-    public String delete(@PathVariable long id){
+    public ResponseEntity<String> delete(@PathVariable long id){
         return  productService.deletedetails(id);
     }
 

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.symbiance.onlinestore.model.Prduct;
 import com.symbiance.onlinestore.repository.Productrepositoy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,9 +36,8 @@ public class ProductService {
     }
 
     public List<Prduct> listallproduct() {
-        List<Prduct> list = new ArrayList<>();
-        productrepositoy.findAll().forEach(list::add);
-        return list;
+
+        return productrepositoy.findAll();
     }
 
     public Prduct updatedetalis(MultipartFile file, String data, Long id) throws IOException {
@@ -54,13 +55,15 @@ public class ProductService {
         prduct1.setCategory(prduct.getCategory());
         return  productrepositoy.save(prduct);
     }
-    public String deletedetails(long id) {
-        if (productrepositoy.existsById(id)) {
-            productrepositoy.deleteById(id);
-            return id + "delete successfully";
-        } else {
-            return "not exits";
-        }
+    public ResponseEntity<String> deletedetails(long id) {
+       try {
+           productrepositoy.deleteById(id);
+           return new ResponseEntity<>(HttpStatus.OK);
+       }catch (Exception e){
+           e.printStackTrace();
+           return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+       }
     }
 
     public List<Prduct> findAllByCategoryName(String name) {
