@@ -67,9 +67,9 @@ public class UserController {
         Set<Role> roles = new HashSet<>();
         roles.add(role);
 
-        User user = new User(userData.getId(), userData.getUserName(), userData.getEmail(), encoder.encode(userData.getPassword()), userData.getRole(),roles);
+        User user = new User(userData.getId(), userData.getUsername(), userData.getEmail(), encoder.encode(userData.getPassword()), userData.getRole(),roles);
 
-        if(userRepository.existsByUserName(user.getUserName())){
+        if(userRepository.existsByUsername(user.getUsername())){
             return ResponseEntity.badRequest().body("Error: Name is already taken");
         }
         if(userRepository.existsByEmail(user.getEmail())){

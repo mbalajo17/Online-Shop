@@ -21,15 +21,20 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "username")
     @Size(max = 20)
-    private String userName;
+    private String username;
     @Size(max = 50)
     @Email
+    @Column(name = "email")
     private String email;
     @Size(max = 120)
+    @Column(name = "password")
     private String password;
+    @Column(name = "role")
     private String role;
 
     @ManyToMany(fetch = FetchType.LAZY)

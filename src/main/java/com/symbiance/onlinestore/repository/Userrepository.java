@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface Userrepository extends JpaRepository<User,Long> {
-    boolean existsByUserName(String name);
+    boolean existsByUsername(String name);
 
     boolean existsByEmail(String email);
 
