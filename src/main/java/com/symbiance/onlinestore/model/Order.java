@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Locale;
 
 @Entity
 @Data
@@ -21,7 +23,8 @@ public class Order {
     private BigInteger phonenumber;
     private float quentity;
 
-    private Date date;
+    private LocalDate orderDate;
+    private LocalDate deliveryDate;
     private float total;
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "product_id")
@@ -30,16 +33,6 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Order(String ordername, String address, BigInteger phonenumber, float quentity, Date date,float total, Prduct prducts, User user) {
-        this.ordername = ordername;
-        this.address = address;
-        this.phonenumber = phonenumber;
-        this.quentity = quentity;
-        this.date = date;
-        this.total=total;
-        this.prducts = prducts;
-        this.user=user;
-    }
 
     public Order(Long orderid) {
         this.orderid = orderid;

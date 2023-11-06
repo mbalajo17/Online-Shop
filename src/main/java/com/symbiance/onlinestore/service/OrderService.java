@@ -11,6 +11,7 @@ import com.symbiance.onlinestore.repository.Userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,27 +28,53 @@ public class OrderService {
     @Autowired
     private Userrepository userrepository;
 
-    public String createorder(Order order) {
-        Optional<Prduct> prductOpt = productrepositoy.findById(order.getPrducts().getId());
-        if(prductOpt.isPresent()){
-            Prduct prduct = prductOpt.get();
-            Optional<User> user = userrepository.findById(order.getUser().getId());
-            if(user.isPresent()){
+    public String createOrder(Order order) {
+        Optional<Prduct> productOpt = productrepositoy.findById(order.getPrducts().getId());
+        if (productOpt.isPresent()) {
+            Prduct product = productOpt.get();
+            Optional<User> userOpt = userrepository.findById(order.getUser().getId());
+            if (userOpt.isPresent()) {
                 Order orderObject = new Order();
                 orderObject.setOrdername(order.getOrdername());
                 orderObject.setAddress(order.getAddress());
                 orderObject.setPhonenumber(order.getPhonenumber());
-                float total = prduct.getPrice()* order.getQuentity();
+                float total = product.getPrice() * order.getQuentity();
                 orderObject.setTotal(total);
                 orderObject.setQuentity(order.getQuentity());
-                orderObject.setDate(order.getDate());
-                orderObject.setPrducts(prduct);
-                orderObject.setUser(user.get());
+
+                // Call the dateFormat method to set orderDate and deliveryDate
+                dateFormate(orderObject, product.getCategory());
+
+                orderObject.setPrducts(product);
+                orderObject.setUser(userOpt.get());
                 orderrepository.save(orderObject);
+                return "successfully";
             }
         }
-        return "successfully";
+        return "failed";
     }
+
+    private void dateFormate(Order orderObject, Category category) {
+        LocalDate orderDate = LocalDate.now();
+        orderObject.setOrderDate(orderDate);
+
+        if (category != null) {
+            String categoryName = category.getName();
+            if (CatagoryConstants.Electronics.contains(categoryName)) {
+                LocalDate deliveryDate = orderDate.plusDays(7);
+                orderObject.setDeliveryDate(deliveryDate);
+            } else if (CatagoryConstants.T_Shirt.contains(categoryName)) {
+                LocalDate deliveryDate = orderDate.plusDays(4);
+                orderObject.setDeliveryDate(deliveryDate);
+            } else {
+                LocalDate deliveryDate = orderDate.plusDays(8);
+                orderObject.setDeliveryDate(deliveryDate);
+            }
+        }
+    }
+
+
+
 
     public List<Order> getallorder() {
         List<Order> list=new ArrayList<>();
