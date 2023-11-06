@@ -8,11 +8,13 @@ import com.symbiance.onlinestore.repository.Orderrepository;
 import com.symbiance.onlinestore.repository.Productrepositoy;
 import com.symbiance.onlinestore.repository.Userrepository;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -60,10 +62,10 @@ public class OrderService {
 
         if (category != null) {
             String categoryName = category.getName();
-            if (CatagoryConstants.Electronics.contains(categoryName)) {
+            if (isCheckedElectronic(categoryName)) {
                 LocalDate deliveryDate = orderDate.plusDays(7);
                 orderObject.setDeliveryDate(deliveryDate);
-            } else if (CatagoryConstants.T_Shirt.contains(categoryName)) {
+            } else if (isCheckedTShirt(categoryName)) {
                 LocalDate deliveryDate = orderDate.plusDays(4);
                 orderObject.setDeliveryDate(deliveryDate);
             } else {
@@ -73,7 +75,13 @@ public class OrderService {
         }
     }
 
+    private boolean isCheckedTShirt(String categoryName) {
+       return StringUtils.containsIgnoreCase(CatagoryConstants.T_Shirt.toString(),categoryName);
+    }
 
+    private boolean isCheckedElectronic(String categoryName) {
+        return StringUtils.containsIgnoreCase(CatagoryConstants.Electronics.toString(),categoryName);
+    }
 
 
     public List<Order> getallorder() {

@@ -7,5 +7,5 @@ public class CatagoryConstants {
 
     public static final List<String> Electronics= Arrays.asList("mobile","Tv");
 
-    public static final List<String> T_Shirt= Arrays.asList("t-shirt","Tv");
+    public static final List<String> T_Shirt= Arrays.asList("t-shirt","Tvs");
 }
